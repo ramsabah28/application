@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navigation/navigator.dart';
+import 'assets/api/ProductsAPI.dart';
 
 
 void main() {
@@ -11,6 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final products =  ProductsAPI().loadProducts();
+    print("#########");
+    products.asStream().forEach((productList) {
+      for (var product in productList) {
+        print(product);
+        print("#########");
+      }
+    });
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Footer Demo',
@@ -24,7 +33,7 @@ class MyApp extends StatelessWidget {
           onSecondary: Color(0xFF1B1B1C),
           background: Color(0xFFF3F3F6),
           onBackground: Color(0xFF1B1B1C),
-          surface: Colors.white,
+          surface: Color(0xFFF3F3F6),
           onSurface: Color(0xFF1B1B1C),
           error: Colors.red,
           onError: Colors.white,
@@ -32,6 +41,8 @@ class MyApp extends StatelessWidget {
       ),
 
       home: const Navigation(title: 'Flutter Demo Home Page'),
+
+
     );
   }
 }

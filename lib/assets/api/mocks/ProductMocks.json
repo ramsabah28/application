@@ -1,0 +1,112 @@
+[
+  {
+    "uuid": "1f1a70d2-5199-4eae-8cbb-abc123000001",
+    "name": "Alice Smith",
+    "productTitle": "Wireless Headphones",
+    "producer": "SoundTech",
+    "description": "High-quality wireless headphones with noise cancellation.",
+    "quantity": 20,
+    "available": true,
+    "category": "Electronics",
+    "imageUrl": "https://example.com/images/headphones.jpg"
+  },
+  {
+    "uuid": "2f2b81e3-62aa-5fbf-9dcc-def456000002",
+    "name": "Bob Johnson",
+    "productTitle": "Smart Thermostat",
+    "producer": "HomeTemp",
+    "description": "Smart thermostat that adapts to your schedule.",
+    "quantity": 15,
+    "available": true,
+    "category": "Home Automation",
+    "imageUrl": "https://example.com/images/thermostat.jpg"
+  },
+  {
+    "uuid": "3a3c92f4-73bb-6gcg-aded-ghi789000003",
+    "name": "Clara Lee",
+    "productTitle": "Eco-Friendly Water Bottle",
+    "producer": "GreenSip",
+    "description": "Reusable water bottle made from recycled materials.",
+    "quantity": 0,
+    "available": false,
+    "category": "Sustainable Products",
+    "imageUrl": "https://example.com/images/waterbottle.jpg"
+  },
+  {
+    "uuid": "4b4da305-84cc-7hdi-bffe-jkl012000004",
+    "name": "David Turner",
+    "productTitle": "4K Action Camera",
+    "producer": "VisionCam",
+    "description": "Compact 4K camera for outdoor adventures.",
+    "quantity": 8,
+    "available": true,
+    "category": "Cameras",
+    "imageUrl": "https://example.com/images/actioncam.jpg"
+  },
+  {
+    "uuid": "5c5eb416-95dd-8iej-cggf-mno345000005",
+    "name": "Emma Wilson",
+    "productTitle": "Bluetooth Speaker",
+    "producer": "BeatBox",
+    "description": "Portable speaker with deep bass and long battery life.",
+    "quantity": 25,
+    "available": true,
+    "category": "Audio",
+    "imageUrl": "https://example.com/images/speaker.jpg"
+  },
+  {
+    "uuid": "6d6fc527-a6ee-9jfk-dhhi-pqr678000006",
+    "name": "Frank Young",
+    "productTitle": "Electric Toothbrush",
+    "producer": "CleanSmile",
+    "description": "Rechargeable toothbrush with smart timer.",
+    "quantity": 12,
+    "available": true,
+    "category": "Health",
+    "imageUrl": "https://example.com/images/toothbrush.jpg"
+  },
+  {
+    "uuid": "7e70d638-b7ff-akgl-eiij-stu901000007",
+    "name": "Grace Kim",
+    "productTitle": "Yoga Mat",
+    "producer": "FlexFit",
+    "description": "Non-slip yoga mat made from eco-friendly materials.",
+    "quantity": 30,
+    "available": true,
+    "category": "Fitness",
+    "imageUrl": "https://example.com/images/yogamat.jpg"
+  },
+  {
+    "uuid": "8f81e749-c800-blhm-fjjk-vwx234000008",
+    "name": "Henry Adams",
+    "productTitle": "Drone with Camera",
+    "producer": "SkyFly",
+    "description": "High-range drone with 1080p live video transmission.",
+    "quantity": 5,
+    "available": false,
+    "category": "Gadgets",
+    "imageUrl": "https://example.com/images/drone.jpg"
+  },
+  {
+    "uuid": "9g92f85a-d911-cmin-gkkl-yza567000009",
+    "name": "Isabel Reed",
+    "productTitle": "Stainless Steel Cookware Set",
+    "producer": "ChefPro",
+    "description": "10-piece cookware set with ergonomic handles.",
+    "quantity": 18,
+    "available": true,
+    "category": "Kitchen",
+    "imageUrl": "https://example.com/images/cookware.jpg"
+  },
+  {
+    "uuid": "0h03g96b-ea22-dnjo-hllm-zbc890000010",
+    "name": "Jack Nolan",
+    "productTitle": "Gaming Mouse",
+    "producer": "ProGamer",
+    "description": "Ergonomic gaming mouse with customizable DPI.",
+    "quantity": 22,
+    "available": true,
+    "category": "Gaming",
+    "imageUrl": "https://example.com/images/gamingmouse.jpg"
+  }
+]

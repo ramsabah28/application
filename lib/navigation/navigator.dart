@@ -3,7 +3,8 @@ import '../header/header.dart';
 import '../content/HomeContent.dart';
 import '../content/CategoryContent.dart';
 import '../content/Cart.dart';
-import '../cards/productCard/ProductCard.dart';
+
+import '../product/singleView/SingleProduct.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key, required this.title});
@@ -41,18 +42,10 @@ class _NavigationState extends State<Navigation> {
           counter: _counter,
         );
         break;
-
+// Placeholder for cards: TODO: see card impl
       case 3: // Search tab index
-        content = ProductCard(
-          imageUrl: "https://i.otto.de/i/otto/9d7b70d5-7ebd-5c09-b3c3-5a7af655496b?h=1040&w=1102&qlt=40&unsharp=0,1,0.6,7&sm=clamp&upscale=true&fmt=auto",
-          brand: "",
-            title: "",
-            description:"",
-            price:00.0,
-            ratingCount:00,
-            rating:00.0,
-            purchaseInfo:"",
-            colors:[]
+        content = SingleProduct(
+
 
         );
         break;
