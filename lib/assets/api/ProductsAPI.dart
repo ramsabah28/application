@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class ProductsAPI {
   Future<List<Product>> loadProducts() async {
-    final String jsonString = await rootBundle.loadString("lib/assets/api/mocks/ProductMocks.json"
+    final String jsonString = await rootBundle.loadString("lib/assets/api/mocks/ProductsMocking.json"
     );
     final List<dynamic> jsonList = jsonDecode(jsonString);
     return jsonList.map((json) => Product.fromJson(json)).toList();

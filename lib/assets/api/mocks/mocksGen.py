@@ -2,7 +2,7 @@ import json
 import uuid
 import os
 
-def generate_product_data(count=1000):
+def generate_product_data(count):
     base_product = {
         "uuid": str(uuid.uuid4()),
         "name": "Alice Smith",
@@ -22,7 +22,7 @@ def generate_product_data(count=1000):
         products.append(product)
 
     # Save in the same directory as this script
-    file_path = os.path.join(os.path.dirname(__file__), "product_mock.json")
+    file_path = os.path.join(os.path.dirname(__file__), "ProductsMocking.json")
     with open(file_path, "w") as f:
         json.dump(products, f, indent=2)
 
