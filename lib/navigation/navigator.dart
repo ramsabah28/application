@@ -3,11 +3,12 @@ import '../header/header.dart';
 import '../content/HomeContent.dart';
 import '../content/CategoryContent.dart';
 import '../content/Cart.dart';
-
 import '../product/singleView/SingleProduct.dart';
+import '../settings/settings.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key, required this.title});
+
   final String title;
 
   @override
@@ -37,24 +38,15 @@ class _NavigationState extends State<Navigation> {
         break;
 
       case 2: // Search tab index
-        content = Cart(
-          selectedIndex: _selectedIndex,
-          counter: _counter,
-        );
+        content = Cart(selectedIndex: _selectedIndex, counter: _counter);
         break;
-// Placeholder for cards: TODO: see card impl
+      // Placeholder for cards: TODO: see card impl
       case 3: // Search tab index
-        content = SingleProduct(
-
-
-        );
+        content = SingleProduct();
         break;
 
       default:
-        content = HomeContent(
-          selectedIndex: _selectedIndex,
-          counter: _counter,
-        );
+        content = HomeContent(selectedIndex: _selectedIndex, counter: _counter);
         break;
     }
 
@@ -70,7 +62,10 @@ class _NavigationState extends State<Navigation> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Warenkorb'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Warenkorb',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),

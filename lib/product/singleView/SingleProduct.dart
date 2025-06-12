@@ -1,81 +1,119 @@
 import 'package:flutter/material.dart';
 import '../../templates/buttons/PrimaryButton.dart';
 import '../../templates/buttons/SecondaryButton.dart';
+import '../../assets/api/ProductsAPI.dart';
 
-class SingleProduct extends StatelessWidget {
+class SingleProduct extends StatefulWidget {
   const SingleProduct({super.key});
 
   @override
+  State<SingleProduct> createState() => _SingleProductState();
+}
+
+class _SingleProductState extends State<SingleProduct> {
+  late Future<Product> _productFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _productFuture = _loadSingleProduct();
+  }
+
+  Future<Product> _loadSingleProduct() async {
+    ProductsAPI api = ProductsAPI();
+    List<Product> products = await api.loadProducts();
+    if (products.isNotEmpty) {
+      return products.first;
+    } else {
+      throw Exception('No products found');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Hitway', style: TextStyle(fontSize: 12)),
-            SizedBox(height: 4),
-            Text(
-              'E-Bike Mountainbike 26*4,0 Zoll',
-              style: TextStyle(
-                fontSize: 22,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return FutureBuilder<Product>(
+      future: _productFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text("Error: ${snapshot.error}")),
+          );
+        } else if (!snapshot.hasData) {
+          return const Scaffold(
+            body: Center(child: Text("No product found")),
+          );
+        }
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Product image with rounded corners
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
-                child: Image.network(
-                  'https://i.otto.de/i/otto/948e48ee-2611-4535-b6c0-33a76ac07647?h=1040&w=1102&qlt=40&unsharp=0,1,0.6,7&sm=clamp&upscale=true&fmt=auto',
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+        final product = snapshot.data!;
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(product.producer, style: const TextStyle(fontSize: 12)),
+                const SizedBox(height: 4),
+                Text(
+                  product.productTitle,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 24),
-
-            // Product title
-            const Divider(color: Colors.black26, thickness: 1),
-            const Text(
-              'Awesome Product',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image.network(
+                      product.imageUrl,
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Divider(color: Colors.black26, thickness: 1),
+                Text(
+                  product.productTitle,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  product.description,
+                  style: const TextStyle(fontSize: 16, color: Colors.black87),
+                ),
+                Center(
+                  child: PrimaryButton(
+                    paddingVertical: 1,
+                    label: "In den Warenkorb",
+                    onPressed: () {},
+                  ),
+                ),
+                Center(
+                  child: SecondaryButton(
+                    label: "Artikel merken",
+                    paddingVertical: 1,
+                    onPressed: () {},
+                  ),
+                ),
+              ],
             ),
-
-            const SizedBox(height: 12),
-
-            // Product description
-            const Text(
-              'This is a detailed description of the product. It includes features, benefits, and any other relevant information the customer might want to know.',
-              style: TextStyle(fontSize: 16, color: Colors.black87),
-            ),
-            Center(
-              child: PrimaryButton(
-                paddingVertical: 1,
-                label: "In den Warenkorp",
-                onPressed: () {}, // do nothing, but button is active
-              ),
-            ),
-            Center(
-              child: SecondaryButton(
-                label: "Artekle Merken",
-                paddingVertical: 1,
-                onPressed: () {}, // do nothing, but button is active
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

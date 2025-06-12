@@ -2,13 +2,13 @@
   {
     "uuid": "1f1a70d2-5199-4eae-8cbb-abc123000001",
     "name": "Alice Smith",
-    "productTitle": "Wireless Headphones",
-    "producer": "SoundTech",
+    "productTitle": "E-Bike Cityrad Elektrofahrrad",
+    "producer": "TAB",
     "description": "High-quality wireless headphones with noise cancellation.",
     "quantity": 20,
     "available": true,
     "category": "Electronics",
-    "imageUrl": "https://example.com/images/headphones.jpg"
+    "imageUrl": "https://i.otto.de/i/otto/4979f673-e4ee-43eb-a673-abadd857096f?h=1040&w=1102&qlt=40&unsharp=0,1,0.6,7&sm=clamp&upscale=true&fmt=auto"
   },
   {
     "uuid": "2f2b81e3-62aa-5fbf-9dcc-def456000002",
