@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class ProductsAPI {
-  Future<List<Product>> loadProducts() async {
+  Future<List<Product>> loadProducts({int page = 0, int pageSize = 10}) async {
     final String jsonString = await rootBundle.loadString("lib/assets/api/mocks/ProductsMocking.json"
     );
     final List<dynamic> jsonList = jsonDecode(jsonString);

@@ -1,3 +1,4 @@
+import 'package:application/cards/categoryCard/CategoryCard.dart';
 import 'package:flutter/material.dart';
 import '../header/header.dart';
 import '../content/HomeContent.dart';
@@ -33,7 +34,6 @@ class _NavigationState extends State<Navigation> {
       case 1: // Search tab index
         content = CategoryContent(
           selectedIndex: _selectedIndex,
-          counter: _counter,
         );
         break;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
+  final String uuid;
   final String imageUrl;
   final String brand;
   final String title;
@@ -13,6 +14,7 @@ class ProductCard extends StatelessWidget {
 
   const ProductCard({
     super.key,
+    required this.uuid,
     required this.imageUrl,
     required this.brand,
     required this.title,
