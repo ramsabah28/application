@@ -4,7 +4,9 @@ import '../../templates/buttons/SecondaryButton.dart';
 import '../../assets/api/ProductsAPI.dart';
 
 class SingleProduct extends StatefulWidget {
-  const SingleProduct({super.key});
+  final String uuid;
+
+  const SingleProduct({super.key, required this.uuid});
 
   @override
   State<SingleProduct> createState() => _SingleProductState();

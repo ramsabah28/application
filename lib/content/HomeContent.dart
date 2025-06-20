@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../cards/productCard/ProductCard.dart';
 import '../assets/api/ProductsAPI.dart';
+import '../product/singleView/SingleProduct.dart';
 
 class HomeContent extends StatefulWidget {
   final int selectedIndex;
@@ -21,9 +22,7 @@ class _HomeContentState extends State<HomeContent> {
   final List<Product> _products = [];
   bool _isLoading = false;
   int _currentPage = 0;
-
   final int _pageSize = 10;
-
   bool _hasMore = true;
 
   @override
@@ -33,7 +32,7 @@ class _HomeContentState extends State<HomeContent> {
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-              _scrollController.position.maxScrollExtent - 200 &&
+          _scrollController.position.maxScrollExtent - 200 &&
           !_isLoading &&
           _hasMore) {
         _loadMore();
@@ -66,10 +65,10 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return ListView.builder(
       controller: _scrollController,
       physics: const BouncingScrollPhysics(),
@@ -78,17 +77,27 @@ class _HomeContentState extends State<HomeContent> {
       itemBuilder: (context, index) {
         if (index < _products.length) {
           final product = _products[index];
-          return ProductCard(
-            uuid: product.uuid,
-            title: product.name,
-            imageUrl: product.imageUrl,
-            description: product.description,
-            brand: '',
-            price: 00,
-            rating: 00,
-            ratingCount: 00,
-            purchaseInfo: '',
-            colors: [],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SingleProduct(uuid: product.uuid),
+                ),
+              );
+            },
+            child: ProductCard(
+              uuid: product.uuid,
+              title: product.name,
+              imageUrl: product.imageUrl,
+              description: product.description,
+              brand: '',
+              price: 00,
+              rating: 00,
+              ratingCount: 00,
+              purchaseInfo: '',
+              colors: [],
+            ),
           );
         } else {
           return const Center(

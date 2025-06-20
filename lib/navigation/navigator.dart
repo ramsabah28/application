@@ -38,7 +38,7 @@ class _NavigationState extends State<Navigation> {
         break;
       // Placeholder for cards: TODO: see card impl
       case 3: // Search tab index
-        content = SingleProduct();
+        content = SingleProduct(uuid: "",);
         break;
 
       default:
