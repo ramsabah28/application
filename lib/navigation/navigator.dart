@@ -1,11 +1,9 @@
-import 'package:application/cards/categoryCard/CategoryCard.dart';
 import 'package:flutter/material.dart';
 import '../header/header.dart';
 import '../content/HomeContent.dart';
 import '../content/CategoryContent.dart';
 import '../content/Cart.dart';
 import '../product/singleView/SingleProduct.dart';
-import '../settings/settings.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key, required this.title});
@@ -32,9 +30,7 @@ class _NavigationState extends State<Navigation> {
 
     switch (_selectedIndex) {
       case 1: // Search tab index
-        content = CategoryContent(
-          selectedIndex: _selectedIndex,
-        );
+        content = CategoryContent(selectedIndex: _selectedIndex);
         break;
 
       case 2: // Search tab index
