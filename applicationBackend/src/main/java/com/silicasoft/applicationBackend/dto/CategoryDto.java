@@ -1,23 +1,20 @@
 package com.silicasoft.applicationBackend.dto;
 
-import com.silicasoft.applicationBackend.entity.SubCategorys;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class CategoryDto {
+@Schema(description = "Manages Category Objects")
+public class CategoryDto  {
 
     private UUID id;
 
-    private String imageUrl;
-
     private String name;
 
-
+    private String imageUrl;
 }

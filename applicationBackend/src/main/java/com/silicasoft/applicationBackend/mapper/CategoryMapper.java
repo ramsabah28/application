@@ -3,7 +3,6 @@ package com.silicasoft.applicationBackend.mapper;
 import com.silicasoft.applicationBackend.dto.CategoryDto;
 import com.silicasoft.applicationBackend.entity.Category;
 
-
 public class CategoryMapper {
     public static CategoryDto toDto(Category category) {
 

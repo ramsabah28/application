@@ -1,21 +1,23 @@
 package com.silicasoft.applicationBackend.entity;
 
-
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "category")
-@Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,8 +26,8 @@ public class Category {
     private String imageUrl;
 
     private String name;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SubCategorys> subCategorys = new ArrayList<>();
-
+/**
+ @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+ private List<SubCategorys> subCategorys = new ArrayList<>();
+ **/
 }
