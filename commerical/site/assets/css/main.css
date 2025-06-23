@@ -126,7 +126,7 @@ a.main-button-slider {
 }
 
 a.main-button-slider:hover {
-  background-color: #f1556a;
+  background-color: #357ce4;
 }
 
 a.main-button {
@@ -145,7 +145,7 @@ a.main-button {
 }
 
 a.main-button:hover {
-  background-color: #f1556a;
+  background-color: #357ce4;
 }
 
 button.main-button {
@@ -167,7 +167,7 @@ button.main-button {
 }
 
 button.main-button:hover {
-  background-color: #f1556a;
+  background-color: #357ce4;
 }
 
 
@@ -840,13 +840,14 @@ testimonials
 }
 
 #testimonials .item .testimonial-content {
-  background: rgb(244,129,63);
-  background: linear-gradient(145deg, rgba(244,129,63,1) 0%, rgba(241,85,106,1) 100%);
+  background: rgb(22,104,215); /* fallback color */
+  background: linear-gradient(145deg, rgba(22,104,215,1) 0%, rgba(40,150,255,1) 100%);
   margin-left: 60px;
   padding: 40px 30px;
   text-align: center;
   border-radius: 5px;
 }
+
 
 #testimonials .item .testimonial-content ul li {
   display: inline-block;
@@ -894,8 +895,8 @@ testimonials
   line-height: 80px;
   text-align: center;
   display: inline-block;
-  background: rgb(244,129,63);
-  background: linear-gradient(145deg, rgba(244,129,63,1) 0%, rgba(241,85,106,1) 100%);
+  background: rgb(22,104,215);
+  background: linear-gradient(145deg, rgba(22,104,215,1) 0%, rgba(40,150,255,1) 100%);
   position: absolute;
 }
 
@@ -911,8 +912,8 @@ testimonials
   line-height: 80px;
   text-align: center;
   display: inline-block;
-  background: rgb(244,129,63);
-  background: linear-gradient(145deg, rgba(244,129,63,1) 0%, rgba(241,85,106,1) 100%);
+  background: rgb(22,104,215);
+  background: linear-gradient(145deg, rgba(22,104,215,1) 0%, rgba(40,150,255,1) 100%);
   position: absolute;
 }
 
