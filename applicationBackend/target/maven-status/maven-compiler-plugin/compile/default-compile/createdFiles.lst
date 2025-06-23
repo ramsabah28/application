@@ -1,3 +1,8 @@
-com/silicasoft/applicationBackend/ApplicationBackendApplication.class
+com/silicasoft/applicationBackend/entity/Category.class
+com/silicasoft/applicationBackend/service/CategoryService.class
 com/silicasoft/applicationBackend/entity/Product.class
+com/silicasoft/applicationBackend/entity/SubCategorys.class
 com/silicasoft/applicationBackend/controller/ProdoctController.class
+com/silicasoft/applicationBackend/dto/CategoryDto.class
+com/silicasoft/applicationBackend/ApplicationBackendApplication.class
+com/silicasoft/applicationBackend/controller/CategoryController.class
