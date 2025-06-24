@@ -9,7 +9,6 @@ class PrimaryButton extends StatelessWidget {
   final double paddingVertical;
   final double paddingHorizontal;
 
-
   const PrimaryButton({
     super.key,
     required this.label,
@@ -24,22 +23,27 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorSchemae = Theme.of(context).colorScheme;
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: colorSchemae.onPrimary,
-        foregroundColor: textColor,
-        padding: EdgeInsets.symmetric(
-          vertical: paddingVertical,
-          horizontal: paddingHorizontal,
+
+    return Container(
+      margin: const EdgeInsets.only(top: 0, bottom: 0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: colorSchemae.onPrimary,
+          foregroundColor: textColor,
+          padding: EdgeInsets.symmetric(
+            vertical: paddingVertical,
+            horizontal: paddingHorizontal,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          minimumSize: Size(100, 48),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+        onPressed: onPressed,
+        child: Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-      ),
-      onPressed: onPressed,
-      child: Text(
-        label,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }
