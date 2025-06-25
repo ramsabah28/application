@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import '../../templates/buttons/PrimaryButton.dart';
 import '../../templates/buttons/SecondaryButton.dart';
 import '../../assets/api/ProductsAPI.dart';
-import '../../header/header.dart';
-import '../../navigation/NavBar.dart';
 
 class SingleProduct extends StatefulWidget {
   final String uuid;
+  final VoidCallback? onBack;
 
-  const SingleProduct({super.key, required this.uuid});
+  const SingleProduct({
+    super.key,
+    required this.uuid,
+    this.onBack,
+  });
 
   @override
   State<SingleProduct> createState() => _SingleProductState();
@@ -16,7 +19,6 @@ class SingleProduct extends StatefulWidget {
 
 class _SingleProductState extends State<SingleProduct> {
   late Future<Product> _productFuture;
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -28,19 +30,13 @@ class _SingleProductState extends State<SingleProduct> {
     ProductsAPI api = ProductsAPI();
     List<Product> products = await api.loadProducts();
     if (products.isNotEmpty) {
-      return products.first;
+      return products.firstWhere(
+            (p) => p.uuid == widget.uuid,
+        orElse: () => products.first,
+      );
     } else {
       throw Exception('No products found');
     }
-  }
-
-  void _onPageChanged(int index, Widget page) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => page),
-    );
   }
 
   @override
@@ -54,24 +50,20 @@ class _SingleProductState extends State<SingleProduct> {
           );
         } else if (snapshot.hasError) {
           return Scaffold(
-            appBar: const Header(),
+            appBar: _buildAppBar(),
             body: Center(child: Text("Error: ${snapshot.error}")),
-            bottomNavigationBar: NavBar(
-              selectedIndex: _selectedIndex,
-              onPageChanged: _onPageChanged,
-            ),
           );
         } else if (!snapshot.hasData) {
-          return const Scaffold(
-            appBar: Header(),
-            body: Center(child: Text("No product found")),
+          return Scaffold(
+            appBar: _buildAppBar(),
+            body: const Center(child: Text("No product found")),
           );
         }
 
         final product = snapshot.data!;
 
         return Scaffold(
-          appBar: const Header(),
+          appBar: _buildAppBar(),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
@@ -116,12 +108,21 @@ class _SingleProductState extends State<SingleProduct> {
               ],
             ),
           ),
-          bottomNavigationBar: NavBar(
-            selectedIndex: _selectedIndex,
-            onPageChanged: _onPageChanged,
-          ),
         );
       },
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: const Text(""),
+      leading: widget.onBack != null
+          ? IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: widget.onBack,
+      )
+          : null,
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../cards/productCard/ProductCard.dart';
 import '../assets/api/ProductsAPI.dart';
 import '../product/singleView/SingleProduct.dart';
-import '../navigation/navigator.dart';
 
 class HomeContent extends StatefulWidget {
   final int selectedIndex;
@@ -25,6 +24,8 @@ class _HomeContentState extends State<HomeContent> {
   int _currentPage = 0;
   final int _pageSize = 10;
   bool _hasMore = true;
+
+  SingleProduct? selectedProduct;
 
   @override
   void initState() {
@@ -70,6 +71,11 @@ class _HomeContentState extends State<HomeContent> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
+
+    if (selectedProduct != null) {
+      return selectedProduct!;
+    }
+
     return ListView.builder(
       controller: _scrollController,
       physics: const BouncingScrollPhysics(),
@@ -80,12 +86,16 @@ class _HomeContentState extends State<HomeContent> {
           final product = _products[index];
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SingleProduct(uuid: product.uuid),
-                ),
-              );
+              setState(() {
+                selectedProduct = SingleProduct(
+                  uuid: product.uuid,
+                  onBack: () {
+                    setState(() {
+                      selectedProduct = null;
+                    });
+                  },
+                );
+              });
             },
             child: ProductCard(
               uuid: product.uuid,
