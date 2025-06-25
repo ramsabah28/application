@@ -50,12 +50,12 @@ class _SingleProductState extends State<SingleProduct> {
           );
         } else if (snapshot.hasError) {
           return Scaffold(
-            appBar: _buildAppBar(),
+
             body: Center(child: Text("Error: ${snapshot.error}")),
           );
         } else if (!snapshot.hasData) {
           return Scaffold(
-            appBar: _buildAppBar(),
+
             body: const Center(child: Text("No product found")),
           );
         }
@@ -63,7 +63,7 @@ class _SingleProductState extends State<SingleProduct> {
         final product = snapshot.data!;
 
         return Scaffold(
-          appBar: _buildAppBar(),
+
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
