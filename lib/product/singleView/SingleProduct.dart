@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import '../../templates/buttons/PrimaryButton.dart';
 import '../../templates/buttons/SecondaryButton.dart';
 import '../../assets/api/ProductsAPI.dart';
+import '../../header/header.dart';
+import '../../navigation/NavBar.dart';
 
 class SingleProduct extends StatefulWidget {
   final String uuid;
+  final VoidCallback? onBack;
 
-  const SingleProduct({super.key, required this.uuid});
+  const SingleProduct({
+    super.key,
+    required this.uuid,
+    this.onBack,
+  });
 
   @override
   State<SingleProduct> createState() => _SingleProductState();
@@ -14,6 +21,7 @@ class SingleProduct extends StatefulWidget {
 
 class _SingleProductState extends State<SingleProduct> {
   late Future<Product> _productFuture;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -22,68 +30,51 @@ class _SingleProductState extends State<SingleProduct> {
   }
 
   Future<Product> _loadSingleProduct() async {
-    ProductsAPI api = ProductsAPI();
-    List<Product> products = await api.loadProducts();
+    final api = ProductsAPI();
+    final products = await api.loadProducts();
+
     if (products.isNotEmpty) {
-      return products.first;
+      return products.firstWhere(
+            (p) => p.uuid == widget.uuid,
+        orElse: () => products.first,
+      );
     } else {
       throw Exception('No products found');
     }
   }
 
+  void _onNavBarTap(int index, Widget page) {
+    Navigator.of(context).pop(); // Exit current SingleProduct screen
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Product>(
-      future: _productFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(child: Text("Error: ${snapshot.error}")),
-          );
-        } else if (!snapshot.hasData) {
-          return const Scaffold(
-            body: Center(child: Text("No product found")),
-          );
-        }
+    return Scaffold(
+      appBar:const Header(),
+      body: FutureBuilder<Product>(
+        future: _productFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (!snapshot.hasData) {
+            return const Center(child: Text("No product found"));
+          }
 
-        final product = snapshot.data!;
+          final product = snapshot.data!;
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(product.producer, style: const TextStyle(fontSize: 12)),
-                const SizedBox(height: 4),
-                Text(
-                  product.productTitle,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          body: Padding(
+          return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Image.network(
-                      product.imageUrl,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.network(
+                    product.imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -97,6 +88,7 @@ class _SingleProductState extends State<SingleProduct> {
                   product.description,
                   style: const TextStyle(fontSize: 16, color: Colors.black87),
                 ),
+                const SizedBox(height: 24),
                 Center(
                   child: PrimaryButton(
                     paddingVertical: 1,
@@ -113,9 +105,13 @@ class _SingleProductState extends State<SingleProduct> {
                 ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
+      bottomNavigationBar: NavBar(
+        selectedIndex: _selectedIndex,
+        onPageChanged: _onNavBarTap,
+      ),
     );
   }
 }
