@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import '../header/header.dart';
 import '../content/HomeContent.dart';
-import '../content/CategoryContent.dart';
-import '../content/Cart.dart';
-import '../product/singleView/SingleProduct.dart';
+import '../header/header.dart';
+import 'NavBar.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key, required this.title});
@@ -17,53 +15,31 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _counter = 0;
   int _selectedIndex = 0;
+  late Widget _content;
 
-  void _onFooterButtonTapped(int index) {
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with HomeContent
+    _content = HomeContent(selectedIndex: 0, counter: _counter);
+  }
+
+  void _onPageChanged(int index, Widget newContent) {
     setState(() {
       _selectedIndex = index;
+      _content = newContent;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget content;
-
-    switch (_selectedIndex) {
-      case 1: // Search tab index
-        content = CategoryContent(selectedIndex: _selectedIndex);
-        break;
-
-      case 2: // Search tab index
-        content = Cart(selectedIndex: _selectedIndex, counter: _counter);
-        break;
-      // Placeholder for cards: TODO: see card impl
-      case 3: // Search tab index
-        content = SingleProduct(uuid: "",);
-        break;
-
-      default:
-        content = HomeContent(selectedIndex: _selectedIndex, counter: _counter);
-        break;
-    }
-
     return Scaffold(
       appBar: const Header(),
-      body: content,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onFooterButtonTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF1668D7),
-        unselectedItemColor: const Color(0xFF1668D7),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Warenkorb',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
-        ],
+      body: _content,
+      bottomNavigationBar: NavBar(
+        selectedIndex: _selectedIndex,
+        counter: _counter,
+        onPageChanged: _onPageChanged,
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../templates/buttons/PrimaryButton.dart';
 import '../../templates/buttons/SecondaryButton.dart';
 import '../../assets/api/ProductsAPI.dart';
+import '../../header/header.dart';
+import '../../navigation/NavBar.dart';
 
 class SingleProduct extends StatefulWidget {
   final String uuid;
@@ -14,6 +16,7 @@ class SingleProduct extends StatefulWidget {
 
 class _SingleProductState extends State<SingleProduct> {
   late Future<Product> _productFuture;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -31,6 +34,15 @@ class _SingleProductState extends State<SingleProduct> {
     }
   }
 
+  void _onPageChanged(int index, Widget page) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Product>(
@@ -42,10 +54,16 @@ class _SingleProductState extends State<SingleProduct> {
           );
         } else if (snapshot.hasError) {
           return Scaffold(
+            appBar: const Header(),
             body: Center(child: Text("Error: ${snapshot.error}")),
+            bottomNavigationBar: NavBar(
+              selectedIndex: _selectedIndex,
+              onPageChanged: _onPageChanged,
+            ),
           );
         } else if (!snapshot.hasData) {
           return const Scaffold(
+            appBar: Header(),
             body: Center(child: Text("No product found")),
           );
         }
@@ -53,27 +71,10 @@ class _SingleProductState extends State<SingleProduct> {
         final product = snapshot.data!;
 
         return Scaffold(
-          appBar: AppBar(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(product.producer, style: const TextStyle(fontSize: 12)),
-                const SizedBox(height: 4),
-                Text(
-                  product.productTitle,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          appBar: const Header(),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
                 Center(
                   child: ClipRRect(
@@ -97,6 +98,7 @@ class _SingleProductState extends State<SingleProduct> {
                   product.description,
                   style: const TextStyle(fontSize: 16, color: Colors.black87),
                 ),
+                const SizedBox(height: 24),
                 Center(
                   child: PrimaryButton(
                     paddingVertical: 1,
@@ -113,6 +115,10 @@ class _SingleProductState extends State<SingleProduct> {
                 ),
               ],
             ),
+          ),
+          bottomNavigationBar: NavBar(
+            selectedIndex: _selectedIndex,
+            onPageChanged: _onPageChanged,
           ),
         );
       },

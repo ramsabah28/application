@@ -33,6 +33,7 @@ class ProductCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+
       child: Container(
         padding: const EdgeInsets.all(12.0),
         height: 320, // Optional fixed height to demonstrate layout
@@ -47,17 +48,30 @@ class ProductCard extends StatelessWidget {
                   // Product image and info
                   Row(
                     children: [
-                      Image.network(
-                        imageUrl,
-                        width: 180,
-                        height: 180,
-                        fit: BoxFit.cover,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          imageUrl,
+                          width: 180,
+                          height: 180,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Title always on top
+                            Text(
+                              title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 20,
+                              ),
+                            ),
+
+                            // Optional: Brand
                             Text(
                               brand,
                               style: const TextStyle(
@@ -65,14 +79,7 @@ class ProductCard extends StatelessWidget {
                                 fontSize: 12,
                               ),
                             ),
-                            Text(
-                              title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
+
                             Text(
                               description,
                               style: const TextStyle(fontSize: 12),
@@ -80,12 +87,47 @@ class ProductCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: 8),
+
+                            // Price
                             Text(
                               "€${price.toStringAsFixed(2)}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
+                            ),
+                            const SizedBox(height: 18),
+                            Row(
+                              children: [
+                                Row(
+                                  children: List.generate(
+                                    5,
+                                    (index) => Icon(
+                                      Icons.star,
+                                      color:
+                                          index < rating
+                                              ? Colors.amber
+                                              : Colors.grey[300],
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '$ratingCount',
+                                  style: const TextStyle(color: Colors.blue),
+                                ),
+                                const Spacer(),
+
+                                Text(
+                                  purchaseInfo,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -95,40 +137,6 @@ class ProductCard extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  // Rating and purchase info
-                  Row(
-                    children: [
-                      Row(
-                        children: List.generate(
-                          5,
-                          (index) => Icon(
-                            Icons.star,
-                            color:
-                                index < rating
-                                    ? Colors.amber
-                                    : Colors.grey[300],
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$ratingCount',
-                        style: const TextStyle(color: Colors.blue),
-                      ),
-                      const Spacer(),
-                      Text(
-                        purchaseInfo,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 6),
                   const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -172,6 +180,7 @@ class ProductCard extends StatelessWidget {
                   child: SecondaryButton(
                     label: "Merken",
                     onPressed: () => print("Push to Corp"),
+                    //TODO: implement Cart
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -179,6 +188,7 @@ class ProductCard extends StatelessWidget {
                   child: PrimaryButton(
                     label: "In den Einkaufswagen",
                     onPressed: () => print("Push to Corp"),
+                    //TODO: implement Cart
                   ),
                 ),
               ],

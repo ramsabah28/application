@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../cards/productCard/ProductCard.dart';
 import '../assets/api/ProductsAPI.dart';
 import '../product/singleView/SingleProduct.dart';
+import '../navigation/navigator.dart';
 
 class HomeContent extends StatefulWidget {
   final int selectedIndex;
