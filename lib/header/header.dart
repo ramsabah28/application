@@ -49,7 +49,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
           tooltip: 'Benachrichtigungen',
           color: Colors.white,
           onPressed: () {
-            // Add your notification logic here
+
           },
         ),
       ],

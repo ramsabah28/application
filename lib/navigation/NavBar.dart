@@ -5,7 +5,7 @@ import '../content/Cart.dart';
 
 class NavBar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int, Widget) onPageChanged; // ✅ New callback
+  final Function(int, Widget) onPageChanged;
   final int counter;
 
   const NavBar({
@@ -28,10 +28,11 @@ class NavBar extends StatelessWidget {
       case 3:
         page = const Center(child: Text("Profil Seite"));
         break;
+
       default:
         page = HomeContent(selectedIndex: index, counter: counter);
         break;
-        //TODO: Fix
+      //TODO: Fix
     }
 
     onPageChanged(index, page);
@@ -48,7 +49,10 @@ class NavBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Warenkorb'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart),
+          label: 'Warenkorb',
+        ),
         BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
       ],
     );

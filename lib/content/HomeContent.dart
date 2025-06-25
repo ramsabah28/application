@@ -8,10 +8,10 @@ class HomeContent extends StatefulWidget {
   final int counter;
 
   const HomeContent({
-    super.key,
+    Key? key,
     required this.selectedIndex,
     required this.counter,
-  });
+  }) : super(key: key);
 
   @override
   State<HomeContent> createState() => _HomeContentState();
@@ -24,8 +24,6 @@ class _HomeContentState extends State<HomeContent> {
   int _currentPage = 0;
   final int _pageSize = 10;
   bool _hasMore = true;
-
-  SingleProduct? selectedProduct;
 
   @override
   void initState() {
@@ -57,24 +55,19 @@ class _HomeContentState extends State<HomeContent> {
         _products.addAll(newItems);
         _currentPage++;
         _hasMore = newItems.length == _pageSize;
-        _isLoading = false;
       });
-    } catch (exception) {
-      setState(() => _isLoading = false);
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to load Products!")),
+        const SnackBar(content: Text('Fehler beim Laden der Produkte')),
       );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-
-
-    if (selectedProduct != null) {
-      return selectedProduct!;
-    }
 
     return ListView.builder(
       controller: _scrollController,
@@ -86,16 +79,12 @@ class _HomeContentState extends State<HomeContent> {
           final product = _products[index];
           return GestureDetector(
             onTap: () {
-              setState(() {
-                selectedProduct = SingleProduct(
-                  uuid: product.uuid,
-                  onBack: () {
-                    setState(() {
-                      selectedProduct = null;
-                    });
-                  },
-                );
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SingleProduct(uuid: product.uuid),
+                ),
+              );
             },
             child: ProductCard(
               uuid: product.uuid,
@@ -103,9 +92,9 @@ class _HomeContentState extends State<HomeContent> {
               imageUrl: product.imageUrl,
               description: product.description,
               brand: '',
-              price: 00,
-              rating: 00,
-              ratingCount: 00,
+              price: 0.0,
+              rating: 0.0,
+              ratingCount: 0,
               purchaseInfo: '',
               colors: [],
             ),

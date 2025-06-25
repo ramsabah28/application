@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../templates/buttons/PrimaryButton.dart';
 import '../../templates/buttons/SecondaryButton.dart';
 import '../../assets/api/ProductsAPI.dart';
+import '../../header/header.dart';
+import '../../navigation/NavBar.dart';
 
 class SingleProduct extends StatefulWidget {
   final String uuid;
@@ -19,6 +21,7 @@ class SingleProduct extends StatefulWidget {
 
 class _SingleProductState extends State<SingleProduct> {
   late Future<Product> _productFuture;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -27,8 +30,9 @@ class _SingleProductState extends State<SingleProduct> {
   }
 
   Future<Product> _loadSingleProduct() async {
-    ProductsAPI api = ProductsAPI();
-    List<Product> products = await api.loadProducts();
+    final api = ProductsAPI();
+    final products = await api.loadProducts();
+
     if (products.isNotEmpty) {
       return products.firstWhere(
             (p) => p.uuid == widget.uuid,
@@ -39,44 +43,38 @@ class _SingleProductState extends State<SingleProduct> {
     }
   }
 
+  void _onNavBarTap(int index, Widget page) {
+    Navigator.of(context).pop(); // Exit current SingleProduct screen
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Product>(
-      future: _productFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else if (snapshot.hasError) {
-          return Scaffold(
+    return Scaffold(
+      appBar:const Header(),
+      body: FutureBuilder<Product>(
+        future: _productFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (!snapshot.hasData) {
+            return const Center(child: Text("No product found"));
+          }
 
-            body: Center(child: Text("Error: ${snapshot.error}")),
-          );
-        } else if (!snapshot.hasData) {
-          return Scaffold(
+          final product = snapshot.data!;
 
-            body: const Center(child: Text("No product found")),
-          );
-        }
-
-        final product = snapshot.data!;
-
-        return Scaffold(
-
-          body: Padding(
+          return Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Image.network(
-                      product.imageUrl,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.network(
+                    product.imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -107,22 +105,13 @@ class _SingleProductState extends State<SingleProduct> {
                 ),
               ],
             ),
-          ),
-        );
-      },
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: const Text(""),
-      leading: widget.onBack != null
-          ? IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: widget.onBack,
-      )
-          : null,
+          );
+        },
+      ),
+      bottomNavigationBar: NavBar(
+        selectedIndex: _selectedIndex,
+        onPageChanged: _onNavBarTap,
+      ),
     );
   }
 }

@@ -20,7 +20,7 @@ class _NavigationState extends State<Navigation> {
   @override
   void initState() {
     super.initState();
-    // Initialize with HomeContent
+
     _content = HomeContent(selectedIndex: 0, counter: _counter);
   }
 
