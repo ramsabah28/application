@@ -16,7 +16,6 @@ class HomeContent extends StatefulWidget {
   @override
   State<HomeContent> createState() => _HomeContentState();
 }
-
 class _HomeContentState extends State<HomeContent> {
   final ScrollController _scrollController = ScrollController();
   final List<Product> _products = [];
@@ -24,6 +23,8 @@ class _HomeContentState extends State<HomeContent> {
   int _currentPage = 0;
   final int _pageSize = 10;
   bool _hasMore = true;
+
+  String? _selectedProductUuid; // <-- NEW: selected product UUID
 
   @override
   void initState() {
@@ -65,9 +66,28 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 
+  void _showProduct(String uuid) {
+    setState(() {
+      _selectedProductUuid = uuid;
+    });
+  }
+
+  void _goBackToList() {
+    setState(() {
+      _selectedProductUuid = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
+    if (_selectedProductUuid != null) {
+      return SingleProduct(
+        uuid: _selectedProductUuid!,
+        onBack: _goBackToList,
+      );
+    }
 
     return ListView.builder(
       controller: _scrollController,
@@ -78,14 +98,7 @@ class _HomeContentState extends State<HomeContent> {
         if (index < _products.length) {
           final product = _products[index];
           return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SingleProduct(uuid: product.uuid),
-                ),
-              );
-            },
+            onTap: () => _showProduct(product.uuid),
             child: ProductCard(
               uuid: product.uuid,
               title: product.name,
@@ -117,3 +130,5 @@ class _HomeContentState extends State<HomeContent> {
     super.dispose();
   }
 }
+
+

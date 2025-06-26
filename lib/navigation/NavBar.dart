@@ -32,7 +32,7 @@ class NavBar extends StatelessWidget {
       default:
         page = HomeContent(selectedIndex: index, counter: counter);
         break;
-      //TODO: Fix
+
     }
 
     onPageChanged(index, page);
