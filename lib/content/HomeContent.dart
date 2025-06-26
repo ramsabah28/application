@@ -6,16 +6,19 @@ import '../product/singleView/SingleProduct.dart';
 class HomeContent extends StatefulWidget {
   final int selectedIndex;
   final int counter;
+  final bool resetView;
 
   const HomeContent({
     Key? key,
     required this.selectedIndex,
     required this.counter,
+    required this.resetView,
   }) : super(key: key);
 
   @override
   State<HomeContent> createState() => _HomeContentState();
 }
+
 class _HomeContentState extends State<HomeContent> {
   final ScrollController _scrollController = ScrollController();
   final List<Product> _products = [];
@@ -24,40 +27,51 @@ class _HomeContentState extends State<HomeContent> {
   final int _pageSize = 10;
   bool _hasMore = true;
 
-  String? _selectedProductUuid; // <-- NEW: selected product UUID
+  String? _selectedProductUuid;
 
   @override
   void initState() {
     super.initState();
-    _loadMore();
+    _loadMoreProducts();
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent - 200 &&
+              _scrollController.position.maxScrollExtent - 200 &&
           !_isLoading &&
           _hasMore) {
-        _loadMore();
+        _loadMoreProducts();
       }
     });
   }
 
-  Future<void> _loadMore() async {
+  @override
+  void didUpdateWidget(covariant HomeContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.resetView) {
+      setState(() {
+        _selectedProductUuid = null;
+      });
+    }
+  }
+
+
+  Future<void> _loadMoreProducts() async {
     if (_isLoading || !_hasMore) return;
 
     setState(() => _isLoading = true);
 
     try {
-      final newItems = await ProductsAPI().loadProducts(
+      final newProducts = await ProductsAPI().loadProducts(
         page: _currentPage,
         pageSize: _pageSize,
       );
 
       setState(() {
-        _products.addAll(newItems);
+        _products.addAll(newProducts);
         _currentPage++;
-        _hasMore = newItems.length == _pageSize;
+        _hasMore = newProducts.length == _pageSize;
       });
-    } catch (e) {
+    } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Fehler beim Laden der Produkte')),
       );
@@ -66,13 +80,13 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 
-  void _showProduct(String uuid) {
+  void _selectProduct(String uuid) {
     setState(() {
       _selectedProductUuid = uuid;
     });
   }
 
-  void _goBackToList() {
+  void _deselectProduct() {
     setState(() {
       _selectedProductUuid = null;
     });
@@ -85,7 +99,7 @@ class _HomeContentState extends State<HomeContent> {
     if (_selectedProductUuid != null) {
       return SingleProduct(
         uuid: _selectedProductUuid!,
-        onBack: _goBackToList,
+        onBack: _deselectProduct,
       );
     }
 
@@ -98,7 +112,7 @@ class _HomeContentState extends State<HomeContent> {
         if (index < _products.length) {
           final product = _products[index];
           return GestureDetector(
-            onTap: () => _showProduct(product.uuid),
+            onTap: () => _selectProduct(product.uuid),
             child: ProductCard(
               uuid: product.uuid,
               title: product.name,
@@ -130,5 +144,3 @@ class _HomeContentState extends State<HomeContent> {
     super.dispose();
   }
 }
-
-

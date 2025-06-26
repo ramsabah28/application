@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../content/HomeContent.dart';
+
 import '../content/CategoryContent.dart';
 import '../content/Cart.dart';
 
@@ -30,7 +31,8 @@ class NavBar extends StatelessWidget {
         break;
 
       default:
-        page = HomeContent(selectedIndex: index, counter: counter);
+        page = HomeContent(selectedIndex: index, counter: counter, resetView: true,);
+
         break;
 
     }

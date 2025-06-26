@@ -21,7 +21,7 @@ class _NavigationState extends State<Navigation> {
   void initState() {
     super.initState();
 
-    _content = HomeContent(selectedIndex: 0, counter: _counter);
+    _content = HomeContent(selectedIndex: 0, counter: _counter,resetView:true);
   }
 
   void _onPageChanged(int index, Widget newContent) {
