@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/category")
-@Tag(name = "Category Controller", description = "Manage Categorys,, endpoint")
+@Tag(name = "Category Controller", description = "Manage Categories endpoint")
 public class CategoryController {
 
     @Autowired
-    public CategoryService categoryService;
+    private CategoryService categoryService;
 
     @PostMapping("/add")
     @Operation(
-            summary = "Lebenszeichen des Produktservices",
-            description = "Test for return OK, Server Startet and connected"
+            summary = "Add a new category",
+            description = "Adds a category using the request body and returns OK if successful."
     )
     public ResponseEntity<String> addCategory(@RequestBody Category category) {
         categoryService.addCategory(category);

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,8 +28,8 @@ public class Category {
     private String imageUrl;
 
     private String name;
-/**
+
  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
  private List<SubCategorys> subCategorys = new ArrayList<>();
- **/
+
 }
