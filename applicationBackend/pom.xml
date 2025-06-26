@@ -62,12 +62,19 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- OpenAPI 3 mit springdoc -->
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.5.0</version> <!-- Aktuelle Version überprüfen -->
+            <version>2.5.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version> <!-- or latest stable version -->
+        </dependency>
+
 
 
     </dependencies>
