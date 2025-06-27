@@ -4,8 +4,11 @@
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/dto/CategoryDto.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/entity/Category.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/entity/Product.java
-/Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/entity/SubCategorys.java
+/Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/entity/SubCategory.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/mapper/CategoryMapper.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/repository/CategoryRepository.java
+/Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/repository/SubCategoryRepository.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/service/CategoryService.java
 /Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/service/CategoryServiceImplementation.java
+/Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/service/SubCategoryService.java
+/Users/ramsabah/IdeaProjects/application/applicationBackend/src/main/java/com/silicasoft/applicationBackend/service/SubCategoryServiceImplementation.java

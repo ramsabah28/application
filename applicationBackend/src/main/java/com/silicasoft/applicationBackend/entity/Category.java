@@ -1,7 +1,6 @@
 package com.silicasoft.applicationBackend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +29,6 @@ public class Category {
     private String name;
 
  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
- private List<SubCategorys> subCategorys = new ArrayList<>();
+ private List<SubCategory> subCategories = new ArrayList<>();
 
 }

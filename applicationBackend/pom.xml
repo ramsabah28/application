@@ -75,6 +75,12 @@
             <version>2.5.0</version> <!-- or latest stable version -->
         </dependency>
 
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
+
 
 
     </dependencies>

@@ -1,7 +1,7 @@
 package com.silicasoft.applicationBackend.integration;
 
 import com.silicasoft.applicationBackend.entity.Category;
-import com.silicasoft.applicationBackend.entity.SubCategorys;
+import com.silicasoft.applicationBackend.entity.SubCategory;
 import com.silicasoft.applicationBackend.repository.CategoryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,10 +40,10 @@ class CategoryRepositoryTest {
     @Test
     @DisplayName("save Category with SubCategories")
     void testSaveCategoryWithSubCategories() {
-        SubCategorys sub1 = new SubCategorys();
+        SubCategory sub1 = new SubCategory();
         sub1.setName("Phones");
 
-        SubCategorys sub2 = new SubCategorys();
+        SubCategory sub2 = new SubCategory();
         sub2.setName("Laptops");
 
         Category category = Category.builder()
@@ -53,11 +53,11 @@ class CategoryRepositoryTest {
 
         sub1.setCategory(category);
         sub2.setCategory(category);
-        category.setSubCategorys(List.of(sub1, sub2));
+        category.setSubCategories(List.of(sub1, sub2));
 
         Category saved = categoryRepository.save(category);
 
-        assertThat(saved.getSubCategorys()).hasSize(2);
-        assertThat(saved.getSubCategorys().get(0).getName()).isEqualTo("Phones");
+        assertThat(saved.getSubCategories()).hasSize(2);
+        assertThat(saved.getSubCategories().get(0).getName()).isEqualTo("Phones");
     }
 }

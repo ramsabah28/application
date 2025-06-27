@@ -8,11 +8,11 @@ import lombok.ToString;
 import java.util.UUID;
 
 @Entity
-@Table(name = "subCategorys")
+@Table(name = "sub_category")
 @Getter
 @Setter
 @ToString
-public class SubCategorys {
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

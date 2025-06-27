@@ -1,13 +1,16 @@
 com/silicasoft/applicationBackend/entity/Category.class
 com/silicasoft/applicationBackend/entity/Product.class
-com/silicasoft/applicationBackend/entity/SubCategorys.class
 com/silicasoft/applicationBackend/ApplicationBackendApplication.class
 com/silicasoft/applicationBackend/entity/Category$CategoryBuilder.class
 com/silicasoft/applicationBackend/controller/CategoryController.class
+com/silicasoft/applicationBackend/service/SubCategoryService.class
 com/silicasoft/applicationBackend/repository/CategoryRepository.class
 com/silicasoft/applicationBackend/service/CategoryServiceImplementation.class
+com/silicasoft/applicationBackend/repository/SubCategoryRepository.class
 com/silicasoft/applicationBackend/service/CategoryService.class
+com/silicasoft/applicationBackend/entity/SubCategory.class
 com/silicasoft/applicationBackend/dto/CategoryDto$CategoryDtoBuilder.class
 com/silicasoft/applicationBackend/controller/ProdoctController.class
 com/silicasoft/applicationBackend/dto/CategoryDto.class
 com/silicasoft/applicationBackend/mapper/CategoryMapper.class
+com/silicasoft/applicationBackend/service/SubCategoryServiceImplementation.class

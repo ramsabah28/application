@@ -1,0 +1,74 @@
+entities:
+  - name: Category
+    table: category
+    fields:
+      - name: id
+        type: uuid
+        primary_key: true
+        auto_generate: true
+
+      - name: imageUrl
+        type: string
+        nullable: true
+
+      - name: name
+        type: string
+        nullable: true
+
+      - name: subCategorys
+        type: one_to_many
+        target: SubCategorys
+        mapped_by: category
+        cascade: all
+        orphan_removal: true
+
+  - name: SubCategorys
+    table: sub_category
+    fields:
+      - name: id
+        type: uuid
+        primary_key: true
+        auto_generate: true
+
+      - name: name
+        type: string
+        nullable: true
+
+      - name: category
+        type: many_to_one
+        target: Category
+        join_column:
+          name: category_id
+          nullable: false
+
+  - name: Product
+    table: products
+    fields:
+      - name: id
+        type: uuid
+        primary_key: true
+        auto_generate: true
+
+      - name: imageUrl
+        type: string
+        nullable: true
+
+      - name: brand
+        type: string
+        nullable: true
+
+      - name: titel
+        type: string
+        nullable: true
+
+      - name: description
+        type: string
+        nullable: true
+
+      - name: price
+        type: float
+        nullable: true
+
+      - name: rating
+        type: float
+        nullable: true
