@@ -37,7 +37,8 @@ class PrimaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          minimumSize: Size(100, 40),
+          minimumSize: Size(60, 30),
+          maximumSize: Size(80, 50)
         ),
         onPressed: onPressed,
         child: Text(

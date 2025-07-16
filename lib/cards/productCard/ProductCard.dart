@@ -186,7 +186,7 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: PrimaryButton(
-                    label: "In den Einkaufswagen",
+                    label: "Im Einkaufswagen",
                     onPressed: () => print("Push to Corp"),
                     //TODO: implement Cart
                   ),
